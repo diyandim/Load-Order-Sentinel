@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import argparse
+import sys
 
 KNOWN_CONFLICTS = {
     "AnotherMod.esp": "Conflicts with SkyrimUI.",
@@ -25,7 +26,12 @@ class Plugin():
 
 
 def main(path: str):
-    f = open(path, "r")
+    try:
+        f = open(path, "r")
+    except FileNotFoundError:
+        print(f"Could not find a file at '{path}'. Please check the path and try again.")
+        sys.exit(1)
+
     collected_plugins = []
 
     for plugin in f:
