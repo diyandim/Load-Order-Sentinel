@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import argparse
 
 KNOWN_CONFLICTS = {
     "AnotherMod.esp": "Conflicts with SkyrimUI.",
@@ -23,8 +24,8 @@ class Plugin():
         
 
 
-def main():
-    f = open("plugins.txt", "r")
+def main(path: str):
+    f = open(path, "r")
     collected_plugins = []
 
     for plugin in f:
@@ -65,7 +66,11 @@ class ConflictRule(Rule):
         return conflict_plugins
 
 if __name__ == "__main__":
-    all_plugins = main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--path", default="plugins.txt")
+    args = parser.parse_args()
+
+    all_plugins = main(args.path)
     combined = {
         
     }
