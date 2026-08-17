@@ -4,6 +4,9 @@ class Plugin():
         self.name = name
         self.enabled = enabled
 
+    def __repr__(self):
+        return f"Plugin(name={self.name}, enabled={self.enabled})"
+
 def main():
     f = open("plugins.txt", "r")
     collected_plugins = []
