@@ -21,6 +21,19 @@ def main():
     print(collected_plugins)
     return collected_plugins
 
+def find_duplicates(plugins: list[Plugin]):
+    seen_names = []
+    duplicate_names = []
+
+    for plug in plugins:
+        if plug.name in seen_names:
+            duplicate_names.append(plug.name)
+        else:
+            seen_names.append(plug.name)
+
+    return duplicate_names
 
 if __name__ == "__main__":
-    main()
+    all_plugins = main()
+    duplicates = find_duplicates(all_plugins)
+    print(duplicates)
