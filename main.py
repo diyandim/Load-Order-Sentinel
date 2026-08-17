@@ -36,6 +36,8 @@ def main(path: str):
 
     for plugin in f:
         stripped = plugin.strip()
+        if stripped == "":
+            continue
         is_enabled = stripped.startswith("*")
         clean_name = stripped.strip("*")
         collected_plugins.append(Plugin(clean_name, is_enabled))
