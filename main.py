@@ -93,7 +93,8 @@ if __name__ == "__main__":
 
     for rule_name, rule_findings in combined.items():
         print(f"{rule_name}:")
-
-        for finding in rule_findings:
-            print(f"  {finding}")
-
+        if rule_findings:
+            for finding in rule_findings:
+                print(f"  {finding}")
+        else:
+            print("  No issues found.")
