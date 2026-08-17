@@ -36,27 +36,6 @@ def main():
     f.close()
     return collected_plugins
 
-def find_duplicates(plugins: list[Plugin]):
-    seen_names = []
-    duplicate_names = []
-
-    for plug in plugins:
-        if plug.name in seen_names:
-            duplicate_names.append(plug.name)
-        else:
-            seen_names.append(plug.name)
-
-    return duplicate_names
-
-def find_known_conflicts(plugins: list[Plugin]):
-    conflict_plugins = []
-
-    for x in plugins:
-        if x.name in KNOWN_CONFLICTS:
-            conflict_plugins.append(f"{x.name}: {KNOWN_CONFLICTS[x.name]}")
-
-    return conflict_plugins
-
 class Rule(ABC):
     @abstractmethod
     def check(self, plugins: list[Plugin]):
