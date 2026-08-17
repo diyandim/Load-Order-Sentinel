@@ -1,0 +1,7 @@
+*Skyrim.esm
+*Update.esm
+*Dawnguard.esm
+*HearthFires.esm
+SomeMod.esp
+*AnotherMod.esp
+*SomeMod.esp
