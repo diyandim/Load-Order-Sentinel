@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod
+
 KNOWN_CONFLICTS = {
     "AnotherMod.esp": "Conflicts with SkyrimUI.",
     "SkyrimUI.esp": "Conflicts with AnotherMod.",
@@ -55,9 +57,43 @@ def find_known_conflicts(plugins: list[Plugin]):
 
     return conflict_plugins
 
+class Rule(ABC):
+    @abstractmethod
+    def check(self, plugins: list[Plugin]):
+        pass
+
+class DuplicateRule(Rule):
+    def check(self, plugins: list[Plugin]):
+        seen_names = []
+        duplicate_names = []
+
+        for plug in plugins:
+            if plug.name in seen_names:
+                duplicate_names.append(plug.name)
+            else:
+                seen_names.append(plug.name)
+
+        return duplicate_names
+
+class ConflictRule(Rule):
+    def check(self, plugins: list[Plugin]):
+        conflict_plugins = []
+
+        for x in plugins:
+            if x.name in KNOWN_CONFLICTS:
+                conflict_plugins.append(f"{x.name}: {KNOWN_CONFLICTS[x.name]}")
+
+        return conflict_plugins
+
 if __name__ == "__main__":
     all_plugins = main()
-    duplicates = find_duplicates(all_plugins)
-    conflicts = find_known_conflicts(all_plugins)
-    print(conflicts)
-    print(duplicates)
+    checked_plugins = []
+    rules = [
+    DuplicateRule(),
+    ConflictRule(),
+    ]
+    for rule in rules:
+        findings = rule.check(all_plugins)
+        checked_plugins.extend(findings)
+
+    print(checked_plugins)
