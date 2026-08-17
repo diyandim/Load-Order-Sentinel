@@ -66,13 +66,16 @@ class ConflictRule(Rule):
 
 if __name__ == "__main__":
     all_plugins = main()
-    checked_plugins = []
+    combined = {
+        
+    }
+
     rules = [
     DuplicateRule(),
     ConflictRule(),
     ]
     for rule in rules:
         findings = rule.check(all_plugins)
-        checked_plugins.extend(findings)
+        combined[rule.__class__.__name__] = findings
 
-    print(checked_plugins)
+    print(combined)
