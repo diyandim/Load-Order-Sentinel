@@ -78,4 +78,9 @@ if __name__ == "__main__":
         findings = rule.check(all_plugins)
         combined[rule.__class__.__name__] = findings
 
-    print(combined)
+    for rule_name, rule_findings in combined.items():
+        print(f"{rule_name}:")
+
+        for finding in rule_findings:
+            print(f"  {finding}")
+
