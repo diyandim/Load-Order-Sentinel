@@ -1,3 +1,15 @@
+KNOWN_CONFLICTS = {
+    "AnotherMod.esp": "Conflicts with SkyrimUI.",
+    "SkyrimUI.esp": "Conflicts with AnotherMod.",
+    "Ordinator.esp": "Conflicts with Apocalypse.",
+    "RelationshipDialogueOverhaul.esp": "Conflicts with InterestingNPCs.",
+    "Campfire.esp": "Conflicts with Frostfall.",
+    "OpenCitiesSkyrim.esp": "Conflicts with city overhauls.",
+    "LegacyoftheDragonborn.esp": "Conflicts with item overhauls.",
+    "SomeTestMod.esp": "Conflicts with AnotherMod.",
+    "DisabledExample.esp": "Causes UI conflicts.",
+    "EnabledExample.esp": "Conflicts with Ordinator.",
+}
 
 class Plugin():
     def __init__(self, name: str, enabled: bool):
@@ -6,6 +18,8 @@ class Plugin():
 
     def __repr__(self):
         return f"Plugin(name={self.name}, enabled={self.enabled})"
+        
+
 
 def main():
     f = open("plugins.txt", "r")
@@ -18,7 +32,6 @@ def main():
         collected_plugins.append(Plugin(clean_name, is_enabled))
 
     f.close()
-    print(collected_plugins)
     return collected_plugins
 
 def find_duplicates(plugins: list[Plugin]):
@@ -33,7 +46,18 @@ def find_duplicates(plugins: list[Plugin]):
 
     return duplicate_names
 
+def find_known_conflicts(plugins: list[Plugin]):
+    conflict_plugins = []
+
+    for x in plugins:
+        if x.name in KNOWN_CONFLICTS:
+            conflict_plugins.append(f"{x.name}: {KNOWN_CONFLICTS[x.name]}")
+
+    return conflict_plugins
+
 if __name__ == "__main__":
     all_plugins = main()
     duplicates = find_duplicates(all_plugins)
+    conflicts = find_known_conflicts(all_plugins)
+    print(conflicts)
     print(duplicates)
