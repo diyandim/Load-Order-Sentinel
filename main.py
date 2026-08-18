@@ -73,6 +73,16 @@ class ConflictRule(Rule):
 
         return conflict_plugins
 
+class MalformedRule(Rule):
+    def check(self, plugins: list[Plugin]):
+        malformed_plugins = []
+
+        for y in plugins:
+            if not y.name.endswith((".esp", ".esm", ".esl")):
+                malformed_plugins.append(f"{y.name}: Invalid file extension")
+
+        return malformed_plugins
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--path", default="plugins.txt")
@@ -86,6 +96,7 @@ if __name__ == "__main__":
     rules = [
     DuplicateRule(),
     ConflictRule(),
+    MalformedRule(),
     ]
     for rule in rules:
         findings = rule.check(all_plugins)
