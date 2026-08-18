@@ -1,19 +1,14 @@
 from abc import ABC, abstractmethod
 import argparse
 import sys
+import json
 
-KNOWN_CONFLICTS = {
-    "AnotherMod.esp": "Conflicts with SkyrimUI.",
-    "SkyrimUI.esp": "Conflicts with AnotherMod.",
-    "Ordinator.esp": "Conflicts with Apocalypse.",
-    "RelationshipDialogueOverhaul.esp": "Conflicts with InterestingNPCs.",
-    "Campfire.esp": "Conflicts with Frostfall.",
-    "OpenCitiesSkyrim.esp": "Conflicts with city overhauls.",
-    "LegacyoftheDragonborn.esp": "Conflicts with item overhauls.",
-    "SomeTestMod.esp": "Conflicts with AnotherMod.",
-    "DisabledExample.esp": "Causes UI conflicts.",
-    "EnabledExample.esp": "Conflicts with Ordinator.",
-}
+try:
+    with open("known_conflicts.json", "r") as conflicts:
+        KNOWN_CONFLICTS = json.load(conflicts)
+except (FileNotFoundError, json.JSONDecodeError):
+    print("Error: known_conflicts.json not found or invalid format.")
+    KNOWN_CONFLICTS = {}
 
 class Plugin():
     def __init__(self, name: str, enabled: bool):
@@ -31,6 +26,7 @@ def main(path: str):
     except FileNotFoundError:
         print(f"Could not find a file at '{path}'. Please check the path and try again.")
         sys.exit(1)
+
 
     collected_plugins = []
 

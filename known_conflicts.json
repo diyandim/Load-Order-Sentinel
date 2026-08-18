@@ -1,0 +1,12 @@
+{
+    "AnotherMod.esp": "Conflicts with SkyrimUI.",
+    "SkyrimUI.esp": "Conflicts with AnotherMod.",
+    "Ordinator.esp": "Conflicts with Apocalypse.",
+    "RelationshipDialogueOverhaul.esp": "Conflicts with InterestingNPCs.",
+    "Campfire.esp": "Conflicts with Frostfall.",
+    "OpenCitiesSkyrim.esp": "Conflicts with city overhauls.",
+    "LegacyoftheDragonborn.esp": "Conflicts with item overhauls.",
+    "SomeTestMod.esp": "Conflicts with AnotherMod.",
+    "DisabledExample.esp": "Causes UI conflicts.",
+    "EnabledExample.esp": "Conflicts with Ordinator."
+}
