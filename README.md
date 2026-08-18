@@ -67,7 +67,6 @@ python3 -m pytest
  
 Ideas for future versions:
  
-- [ ] Malformed-line detection (unexpected characters, bad formatting)
 - [ ] Missing-master detection (would require parsing plugin headers directly, not just the load order text file)
 - [ ] Config file support for `KNOWN_CONFLICTS` instead of hardcoding it in `main.py`
 - [ ] More test coverage, including edge cases like empty files and blank lines
